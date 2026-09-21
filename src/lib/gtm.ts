@@ -2,14 +2,14 @@
 
 declare global {
   interface Window {
-    dataLayer: Record<string, any>[];
+    dataLayer: Record<string, unknown>[];
   }
 }
 
 /**
  * Helper safety wrapper to push objects to window.dataLayer
  */
-export function pushToDataLayer(data: Record<string, any>) {
+export function pushToDataLayer(data: Record<string, unknown>) {
   if (typeof window !== 'undefined') {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push(data);

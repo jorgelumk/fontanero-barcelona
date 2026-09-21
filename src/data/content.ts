@@ -30,7 +30,7 @@ export const SITE_INFO = {
   phoneDisplay: '657 144 186',
   phoneRaw: '+34657144186',
   whatsappUrl: 'https://wa.me/34657144186?text=Hola,%20necesito%20un%20fontanero%20en%20Barcelona',
-  email: 'jorge@agenciaiasolutions.com',
+  email: 'info@fontanerosbarcelona24h.com',
   gasInstallerReg: 'Nº Reg. 08/XXXXXX',
   teamSize: 'Más de 10 fontaneros en plantilla',
   responseMinutes: 30,

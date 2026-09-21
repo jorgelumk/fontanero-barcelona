@@ -10,8 +10,6 @@ import {
   Map, 
   ArrowRight,
   Sparkles,
-  Layers,
-  HelpCircle,
   PhoneCall
 } from 'lucide-react';
 import { SITE_INFO, SERVICES_LIST } from '@/data/content';

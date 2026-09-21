@@ -11,7 +11,7 @@ interface LeadData {
   fecha?: string;
 }
 
-const DESTINATION_EMAIL = 'jorge@agenciaiasolutions.com';
+const DESTINATION_EMAIL = process.env.RESEND_TO_EMAIL || 'jorge@agenciaiasolutions.com';
 
 export async function sendLeadEmail(lead: LeadData): Promise<{ success: boolean; method: string; error?: string }> {
   const fechaStr = lead.fecha || new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' });
