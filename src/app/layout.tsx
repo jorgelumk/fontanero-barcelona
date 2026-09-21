@@ -4,6 +4,7 @@ import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { MobileFloatingBar } from '@/components/MobileFloatingBar';
+import { WhatsAppFloatingButton } from '@/components/WhatsAppFloatingButton';
 import { GoogleTagManager } from '@/components/GoogleTagManager';
 import { SITE_INFO } from '@/data/content';
 
@@ -35,10 +36,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
       { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico' },
     ],
-    apple: '/icon.svg',
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   openGraph: {
     title: 'Fontaneros Barcelona 24h | Servicio Urgente en 30 Minutos',
@@ -78,6 +83,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <MobileFloatingBar />
+        <WhatsAppFloatingButton />
       </body>
     </html>
   );
