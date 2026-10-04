@@ -11,9 +11,8 @@ interface LeadData {
   fecha?: string;
 }
 
-const DESTINATION_EMAIL = process.env.RESEND_TO_EMAIL || 'jorge@agenciaiasolutions.com';
-
 export async function sendLeadEmail(lead: LeadData): Promise<{ success: boolean; method: string; error?: string }> {
+  const destinationEmail = process.env.RESEND_TO_EMAIL || 'jorgelujanmk@gmail.com';
   const fechaStr = lead.fecha || new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' });
 
   // HTML Email Body
@@ -78,16 +77,20 @@ export async function sendLeadEmail(lead: LeadData): Promise<{ success: boolean;
       const resend = new Resend(process.env.RESEND_API_KEY);
       const fromEmail = process.env.RESEND_FROM_EMAIL || 'Fontaneros Barcelona 24h <onboarding@resend.dev>';
       
-      await resend.emails.send({
+      const { data, error } = await resend.emails.send({
         from: fromEmail,
-        to: [DESTINATION_EMAIL],
+        to: [destinationEmail],
         subject: `🚨 NUEVO LEAD: ${lead.servicio} - ${lead.nombre} (${lead.telefono})`,
         html: htmlContent,
         text: textContent,
       });
 
-      console.log(`[EMAIL SUCCESS] Sent via Resend to ${DESTINATION_EMAIL}`);
-      return { success: true, method: 'Resend' };
+      if (error) {
+        console.error('[Resend API Error]:', error);
+      } else {
+        console.log(`[EMAIL SUCCESS] Sent via Resend to ${destinationEmail}`, data);
+        return { success: true, method: 'Resend' };
+      }
     } catch (err: unknown) {
       const errMsg = err instanceof Error ? err.message : String(err);
       console.error('[EMAIL RESEND ERROR]', errMsg);
@@ -109,13 +112,13 @@ export async function sendLeadEmail(lead: LeadData): Promise<{ success: boolean;
 
       await transporter.sendMail({
         from: process.env.SMTP_FROM || `"Fontaneros Barcelona 24h" <${process.env.SMTP_USER}>`,
-        to: DESTINATION_EMAIL,
+        to: destinationEmail,
         subject: `🚨 NUEVO LEAD: ${lead.servicio} - ${lead.nombre} (${lead.telefono})`,
         html: htmlContent,
         text: textContent,
       });
 
-      console.log(`[EMAIL SUCCESS] Sent via SMTP to ${DESTINATION_EMAIL}`);
+      console.log(`[EMAIL SUCCESS] Sent via SMTP to ${destinationEmail}`);
       return { success: true, method: 'SMTP' };
     } catch (err: unknown) {
       const errMsg = err instanceof Error ? err.message : String(err);
