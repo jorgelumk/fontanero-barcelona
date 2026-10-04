@@ -75,11 +75,12 @@ export async function sendLeadEmail(lead: LeadData): Promise<{ success: boolean;
   if (process.env.RESEND_API_KEY) {
     try {
       const resend = new Resend(process.env.RESEND_API_KEY);
-      const fromEmail = process.env.RESEND_FROM_EMAIL || 'Fontaneros Barcelona 24h <onboarding@resend.dev>';
+      const fromEmail = process.env.RESEND_FROM_EMAIL || 'Fontaneros Barcelona 24h <jorge@agenciaiasolutions.com>';
       
+      const toList = destinationEmail.split(',').map((e) => e.trim());
       const { data, error } = await resend.emails.send({
         from: fromEmail,
-        to: [destinationEmail],
+        to: toList,
         subject: `🚨 NUEVO LEAD: ${lead.servicio} - ${lead.nombre} (${lead.telefono})`,
         html: htmlContent,
         text: textContent,
