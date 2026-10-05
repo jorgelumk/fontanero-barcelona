@@ -88,6 +88,11 @@ export async function sendLeadEmail(lead: LeadData): Promise<{ success: boolean;
 
       if (error) {
         console.error('[Resend API Error]:', error);
+        return {
+          success: false,
+          method: 'Resend',
+          error: `Resend error: ${error.message || JSON.stringify(error)}`,
+        };
       } else {
         console.log(`[EMAIL SUCCESS] Sent via Resend to ${destinationEmail}`, data);
         return { success: true, method: 'Resend' };
