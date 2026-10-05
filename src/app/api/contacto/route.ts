@@ -26,6 +26,14 @@ export async function POST(request: Request) {
         message: 'Solicitud recibida correctamente.',
         method: result.method,
         note: result.error,
+        debug: {
+          hasResendKey: Boolean(process.env.RESEND_API_KEY),
+          keyPrefix: process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.substring(0, 5) : 'NONE',
+          hasReceiver: Boolean(process.env.LEAD_RECEIVER_EMAIL || process.env.RESEND_TO_EMAIL),
+          receiverVal: process.env.LEAD_RECEIVER_EMAIL || process.env.RESEND_TO_EMAIL || 'NONE',
+          hasFrom: Boolean(process.env.RESEND_FROM_EMAIL),
+          fromVal: process.env.RESEND_FROM_EMAIL || 'NONE',
+        }
       },
       { status: 200 }
     );
