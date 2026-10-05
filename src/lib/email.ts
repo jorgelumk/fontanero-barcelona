@@ -12,7 +12,7 @@ interface LeadData {
 }
 
 export async function sendLeadEmail(lead: LeadData): Promise<{ success: boolean; method: string; error?: string }> {
-  const destinationEmail = process.env.RESEND_TO_EMAIL || 'jorgelujanmk@gmail.com';
+  const destinationEmail = process.env.RESEND_TO_EMAIL || process.env.LEAD_RECEIVER_EMAIL || 'jorgelujanmk@gmail.com';
   const fechaStr = lead.fecha || new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' });
 
   // HTML Email Body
